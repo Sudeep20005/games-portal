@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Games Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Games Portal</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span>Menu</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="games.html" class="active">Games</a></li>
+                <li><a href="about.html">About & Instructions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="featured">
+        <div class="section-title">
+            <h2>All <span>Games</span></h2>
+            <p>Browse our curated collection.</p>
+        </div>
+
+        <!-- Filter/Search Bar Placeholder -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <input type="text" placeholder="Search games..."
+                style="padding: 12px; border-radius: 8px; border: 1px solid #ddd; width: 100%; max-width: 400px; background: #fff; color: #222; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        </div>
+
+        <div class="games-grid">
+            <!-- Tetris Game Card -->
+            <!-- Tetris Game Card -->
+            <div class="game-card tetris-featured">
+                <div class="game-info">
+                    <h3>Classic Tetris</h3>
+                    <p>The legendary puzzle game. Stack blocks & clear lines.</p>
+                    <a href="tetris.html" class="btn btn-primary">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-placeholder-img">Strategy</div>
+                <div class="game-info">
+                    <h3>Strategy General</h3>
+                    <p>Coming Soon...</p>
+                    <button class="btn btn-primary" disabled
+                        style="opacity: 0.5; background-color: #ccc; box-shadow: none; cursor: default;">Coming
+                        Soon</button>
+                </div>
+            </div>
+
+            <!-- Repeats for fullness -->
+            <div class="game-card">
+                <div class="game-placeholder-img">Action</div>
+                <div class="game-info">
+                    <h3>Space Voyager</h3>
+                    <p>Navigate through the galaxy...</p>
+                    <a href="space-shooter.html" class="btn btn-primary"
+                        style="padding: 10px 20px; font-size: 0.9rem;">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-placeholder-img">RPG</div>
+                <div class="game-info">
+                    <h3>Dungeon Crawler</h3>
+                    <p>Explore dark dungeons...</p>
+                    <a href="#" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-placeholder-img">Racing</div>
+                <div class="game-info">
+                    <h3>Neon Racer</h3>
+                    <p>High speed racing...</p>
+                    <a href="#" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-placeholder-img">Sports</div>
+                <div class="game-info">
+                    <h3>Hoops 3D</h3>
+                    <p>Coming Soon...</p>
+                    <button class="btn btn-primary" disabled
+                        style="opacity: 0.5; background-color: #ccc; box-shadow: none; cursor: default;">Coming
+                        Soon</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Created by Antigravity | &copy; 2024 Games Portal.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

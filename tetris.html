@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris - Games Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #16213e 50%, #000000 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Neon Glassmorphism Theme */
+        .tetris-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        canvas {
+            border: 4px solid #333;
+            background-color: #000;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 10px rgba(74, 144, 226, 0.3);
+            display: block;
+            border-radius: 4px;
+        }
+
+        .game-info-panel {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 280px;
+            color: #fff;
+        }
+
+        .score-box {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .score-value {
+            font-weight: 700;
+            color: #fff;
+            display: block;
+            font-size: 3.5rem;
+            margin-top: 0.5rem;
+            text-shadow: 0 0 10px rgba(74, 144, 226, 0.8), 0 0 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .controls-list {
+            margin-top: 1.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .controls-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .key-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Neon Buttons */
+        .btn-neon {
+            width: 100%;
+            margin-bottom: 1rem;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #FF0D72 0%, #F538FF 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 56, 255, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(245, 56, 255, 0.6);
+        }
+
+        .btn-pause {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-pause:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .game-over-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            display: none;
+            z-index: 10;
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Games Portal</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span>Menu</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="games.html" class="active">Games</a></li>
+                <li><a href="about.html">About & Instructions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="featured">
+        <div class="section-title">
+            <h2>Classic <span>Tetris</span></h2>
+            <p>Stack blocks, clear lines, score high!</p>
+        </div>
+
+        <div class="tetris-container">
+            <div class="canvas-wrapper">
+                <canvas id="tetris" width="400" height="600"></canvas>
+                <div id="game-over" class="game-over-overlay">
+                    <h2 style="color: #222;">GAME OVER</h2>
+                    <p style="margin-bottom: 1rem;">Final Score: <span id="final-score">0</span></p>
+                    <button class="btn btn-primary" onclick="resetGame()">Play Again</button>
+                </div>
+            </div>
+
+            <div class="game-info-panel">
+                <div class="score-box">
+                    Score
+                    <span id="score" class="score-value">0</span>
+                </div>
+
+                <div class="controls-panel">
+                    <button id="start-btn" class="btn-neon btn-start">Start Game</button>
+                    <button id="pause-btn" class="btn-neon btn-pause">Pause</button>
+
+                    <div style="margin-top: 2rem;">
+                        <h4>Controls</h4>
+                        <ul class="controls-list">
+                            <li><span>Move Left</span> <span class="key-badge">←</span></li>
+                            <li><span>Move Right</span> <span class="key-badge">→</span></li>
+                            <li><span>Rotate</span> <span class="key-badge">↑</span></li>
+                            <li><span>Soft Drop</span> <span class="key-badge">↓</span></li>
+                            <li><span>Hard Drop</span> <span class="key-badge" style="width: auto;">Space / Click</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Created by Antigravity | &copy; 2024 Games Portal.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/tetris.js"></script>
+</body>
+
+</html>
