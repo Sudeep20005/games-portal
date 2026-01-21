@@ -1,23 +1,21 @@
-.canvas-wrapper canvas {
-  border: 4px solid #333;
-  background-color: #000;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
+/* Dark Gaming Theme */
 :root {
-  --bg-color: #F5F5F5;
-  --card-bg: #FFFFFF;
-  --accent-color: #4A90E2;
-  --secondary-color: #3B78D8;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-light: #FFFFFF;
-  --header-bg: #333333;
+  --bg-color: #121212;
+  --card-bg: #1E1E1E;
+  --accent-color: #00F0FF; /* Neon Cyan */
+  --secondary-color: #B900FC; /* Neon Purple */
+  --text-main: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --header-bg: #0A0A0A;
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Roboto', sans-serif;
-  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 0 20px rgba(0, 240, 255, 0.4);
   --radius: 8px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Reset & Basics */
@@ -53,8 +51,9 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  color: var(--header-bg);
+  color: var(--text-main);
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 /* Components */
@@ -64,33 +63,89 @@ h6 {
   border-radius: var(--radius);
   font-family: var(--font-heading);
   font-weight: 600;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn:disabled, .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    pointer-events: none;
 }
 
 .btn-primary {
-  background-color: var(--accent-color);
-  color: #fff;
-  box-shadow: var(--shadow-soft);
+  background: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
 }
 
 .btn-primary:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--accent-color);
+  color: #000;
+  box-shadow: 0 0 20px var(--accent-color);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Search Bar */
+.search-container {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    width: 100%;
+    max-width: 400px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
 }
 
 /* Header */
 header {
   background-color: var(--header-bg);
   padding: 1rem 2rem;
+  position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: var(--shadow-soft);
-  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  border-bottom: 1px solid #333;
 }
 
 nav {
@@ -105,10 +160,9 @@ nav {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: bold;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .nav-links {
@@ -118,44 +172,84 @@ nav {
 
 .nav-links a {
   font-weight: 500;
-  color: #ccc;
-  font-size: 0.95rem;
+  color: #888;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  position: relative;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #fff;
+  color: var(--accent-color);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
 }
 
 .menu-toggle {
   display: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #fff;
+  color: var(--text-main);
 }
 
 /* Hero Section */
 .hero {
-  height: 60vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #fff;
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
   padding: 0 1rem;
   margin-bottom: 2rem;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.8)),
+    repeating-linear-gradient(0deg, transparent, transparent 1px, #00f0ff 1px, transparent 2px);
+  background-size: 100% 4px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
   color: var(--text-main);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
 }
 
 .hero-content p {
   font-size: 1.25rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   color: var(--text-secondary);
   max-width: 600px;
   margin-left: auto;
@@ -178,10 +272,12 @@ nav {
 .section-title h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
 
 .section-title span {
-  color: var(--accent-color);
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px rgba(185, 0, 252, 0.4);
 }
 
 .section-title p {
@@ -198,25 +294,31 @@ nav {
   background-color: var(--card-bg);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
   box-shadow: var(--shadow-soft);
-  border: 1px solid #eee;
+  border: 1px solid #333;
+  position: relative;
 }
 
 .game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  border-color: var(--accent-color);
 }
 
 .game-placeholder-img {
   width: 100%;
-  height: 180px;
-  background-color: #e0e0e0;
+  height: 200px;
+  background-color: #2a2a2a;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
-  font-size: 3rem;
+  color: #888;
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #333;
 }
 
 .game-info {
@@ -244,6 +346,19 @@ nav {
   max-width: 800px;
   margin: 0 auto;
   box-shadow: var(--shadow-soft);
+  border: 1px solid #333;
+}
+
+.about-box h3 {
+  color: var(--accent-color) !important;
+}
+
+.about-box a {
+    color: var(--secondary-color) !important;
+}
+
+.about-box p, .about-box li {
+    color: var(--text-secondary) !important;
 }
 
 /* Footer */
@@ -252,11 +367,19 @@ footer {
   padding: 3rem 2rem;
   text-align: center;
   margin-top: 4rem;
-  color: #999;
+  color: #666;
+  border-top: 1px solid #333;
 }
 
 footer p {
   font-size: 0.9rem;
+}
+
+/* Canvas Wrapper for games */
+.canvas-wrapper canvas {
+  border: 2px solid var(--accent-color);
+  background-color: #000;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
 }
 
 /* Responsive */
@@ -268,7 +391,6 @@ footer p {
   .nav-links {
     position: absolute;
     top: 60px;
-    /* Adjusted for header height */
     left: 0;
     width: 100%;
     background-color: var(--header-bg);
@@ -277,7 +399,8 @@ footer p {
     padding: 2rem 0;
     transform: translateY(-150%);
     transition: transform 0.3s ease;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--accent-color);
   }
 
   .nav-links.active {
@@ -288,32 +411,40 @@ footer p {
     font-size: 2.5rem;
   }
 }
-/* Tetris Featured Card */
+
+/* Tetris Featured Card Special Styling */
 .game-card.tetris-featured {
-    background-image: url('../assets/tetris_bg.png');
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url('../assets/tetris_bg.png');
     background-size: cover;
     background-position: center;
     position: relative;
-    border: 2px solid #FF0D72; /* Neon Pink Border */
-    box-shadow: 0 0 15px rgba(255, 13, 114, 0.3);
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 15px rgba(185, 0, 252, 0.2);
     min-height: 320px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Push content to bottom */
+    justify-content: flex-end;
+}
+
+.game-card.tetris-featured:hover {
+    box-shadow: 0 0 30px rgba(185, 0, 252, 0.5);
+    border-color: #fff;
+    transform: translateY(-10px) scale(1.02);
 }
 
 .game-card.tetris-featured .game-info {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(4px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border-top: none;
     padding: 1.5rem;
+    z-index: 2;
 }
 
 .game-card.tetris-featured h3 {
     color: #fff;
-    text-shadow: 0 0 5px #FF0D72;
+    text-shadow: 0 0 10px var(--secondary-color);
+    font-size: 1.5rem;
 }
 
 .game-card.tetris-featured p {
-    color: #ccc;
+    color: #ddd;
 }
