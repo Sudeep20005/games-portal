@@ -279,6 +279,28 @@ function checkRectCollision(e1, e2) {
     return (l1 < r2 && r1 > l2 && t1 < b2 && b1 > t2);
 }
 
+function removeDeadEntities(entities) {
+    let n = entities.length;
+    for (let i = n - 1; i >= 0; i--) {
+        if (entities[i].markedForDeletion) {
+            entities[i] = entities[n - 1];
+            entities.pop();
+            n--;
+        }
+    }
+}
+
+function removeDeadParticles(particles) {
+    let n = particles.length;
+    for (let i = n - 1; i >= 0; i--) {
+        if (particles[i].life <= 0) {
+            particles[i] = particles[n - 1];
+            particles.pop();
+            n--;
+        }
+    }
+}
+
 function update(timestamp) {
     if (!gameRunning || gameOver) return;
     const deltaTime = timestamp - lastTime;
@@ -324,10 +346,10 @@ function update(timestamp) {
     powerups.forEach(p => p.update());
     particles.forEach(p => p.update());
 
-    projectiles = projectiles.filter(p => !p.markedForDeletion);
-    enemies = enemies.filter(e => !e.markedForDeletion);
-    powerups = powerups.filter(p => !p.markedForDeletion);
-    particles = particles.filter(p => p.life > 0);
+    removeDeadEntities(projectiles);
+    removeDeadEntities(enemies);
+    removeDeadEntities(powerups);
+    removeDeadParticles(particles);
 
     // Collisions
     projectiles.forEach(p => {
