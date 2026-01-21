@@ -131,7 +131,7 @@ class PowerUp {
     constructor(x, y, type) {
         this.x = x; this.y = y; this.type = type;
         this.width = 30;
-        this.height = 30; // Fixed: Added height!
+        this.height = 30;
         this.speed = 3;
         this.markedForDeletion = false;
         this.color = type === 'spread' ? '#FFFF00' : (type === 'shield' ? '#00FF00' : (type === 'rapid' ? '#00FFFF' : '#FF0000'));
