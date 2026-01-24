@@ -206,6 +206,19 @@ nav {
   color: var(--text-main);
 }
 
+button.menu-toggle {
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+
+button.menu-toggle:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 /* Hero Section */
 .hero {
   height: 70vh;
