@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+
             navLinks.classList.toggle('active');
 
             // Toggle text/icon (modified for text-based button)
