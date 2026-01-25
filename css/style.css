@@ -206,6 +206,13 @@ nav {
   color: var(--text-main);
 }
 
+button.menu-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+}
+
 /* Hero Section */
 .hero {
   height: 70vh;

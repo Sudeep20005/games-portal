@@ -1,0 +1,3 @@
+## 2025-01-25 - [Accessibility Pattern: Mobile Menu Toggles]
+**Learning:** Mobile menu toggles implemented as `<div>` elements are inaccessible to keyboard users and screen readers. Replacing them with `<button>` elements requires careful CSS resetting to preserve the visual design while gaining native keyboard focus and semantic meaning.
+**Action:** When refactoring interactive elements from `div` to `button`, always apply `background: transparent; border: none; padding: 0; font: inherit;` and ensure `aria-label`, `aria-expanded`, and `aria-controls` attributes are added and managed dynamically.
