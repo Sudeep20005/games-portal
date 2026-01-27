@@ -204,6 +204,10 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--text-main);
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  padding: 0;
 }
 
 /* Hero Section */
