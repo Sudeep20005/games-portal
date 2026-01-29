@@ -5,12 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.toggle('active');
+
+            // Update ARIA state
+            mobileMenuBtn.setAttribute('aria-expanded', isActive);
 
             // Toggle text/icon (modified for text-based button)
             const span = mobileMenuBtn.querySelector('span');
             if (span) {
-                if (navLinks.classList.contains('active')) {
+                if (isActive) {
                     span.textContent = 'Close';
                 } else {
                     span.textContent = 'Menu';
