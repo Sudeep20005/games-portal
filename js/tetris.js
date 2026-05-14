@@ -17,6 +17,23 @@ canvas.height = 600;
 canvas.width = 400;
 context.scale(40, 40);
 
+// --- Optimization: Cache Canvas Metrics ---
+let canvasRect = null;
+let canvasScaleX = 1;
+
+function updateCanvasMetrics() {
+    canvasRect = canvas.getBoundingClientRect();
+    // Protect against divide by zero if canvas is hidden/zero width
+    if (canvasRect.width > 0) {
+        canvasScaleX = canvas.width / canvasRect.width;
+    }
+}
+
+// Initialize and keep updated
+updateCanvasMetrics();
+window.addEventListener('resize', updateCanvasMetrics);
+window.addEventListener('scroll', updateCanvasMetrics);
+
 // Colors
 const colors = [
     null,
@@ -167,9 +184,10 @@ function createMatrix(w, h) {
 // Mouse Tracking & Direct Movement
 canvas.addEventListener('mousemove', (e) => {
     if (isPaused || isGameOver) return;
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const clickX = (e.clientX - rect.left) * scaleX;
+
+    // Optimized: Use cached metrics
+    if (!canvasRect) updateCanvasMetrics();
+    const clickX = (e.clientX - canvasRect.left) * canvasScaleX;
 
     // Scale 40px blocks
     const col = Math.floor(clickX / 40);
@@ -537,9 +555,9 @@ function getMatrixBounds(matrix) {
 function handleInput(clientX) {
     if (isPaused || isGameOver) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width; // Account for CSS scaling
-    const clickX = (clientX - rect.left) * scaleX;
+    // Optimized: Use cached metrics
+    if (!canvasRect) updateCanvasMetrics();
+    const clickX = (clientX - canvasRect.left) * canvasScaleX;
 
     // Grid size 40px
     const col = Math.floor(clickX / 40);
