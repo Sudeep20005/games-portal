@@ -194,9 +194,12 @@ canvas.addEventListener('mousemove', (e) => {
         player.pos.x = oldX;
     }
 
-    // Also update mouseCol for ghost logic if needed, or ghost effectively overlaps player now
-    // But ghost shows the DROP position, so still useful!
+    // Update mouseCol for ghost logic
     mouseCol = col;
+});
+
+canvas.addEventListener('mouseleave', () => {
+    mouseCol = -1;
 });
 
 function draw() {
@@ -222,9 +225,7 @@ function draw() {
 
     drawMatrix(arena, { x: 0, y: 0 });
 
-    // Draw Hard Drop Ghost (Original location) - Optional, kept for keyboard users? 
-    // Actually, let's keep the original ghost for keyboard/default pos, 
-    // AND add the Mouse Ghost if mouse is active.
+    // Draw Ghosts
 
     // 1. Standard Ghost (Keyboard focus)
     const ghost = {
@@ -426,6 +427,7 @@ let dropInterval = 1000;
 let lastTime = 0;
 let isPaused = false;
 let isGameOver = false;
+let mouseCol = -1;
 
 function update(time = 0) {
     if (isPaused || isGameOver) return;
@@ -460,6 +462,8 @@ function resetGame() {
     player.score = 0;
     updateScore();
     isGameOver = false;
+    isPaused = false;
+    pauseBtn.innerText = 'Pause';
     gameOverOverlay.style.display = 'none';
     playerReset();
     lastTime = performance.now();
@@ -505,8 +509,10 @@ document.addEventListener('keydown', event => {
     }
 
     if (event.keyCode === 37) { // Left
+        mouseCol = -1;
         playerMove(-1);
     } else if (event.keyCode === 39) { // Right
+        mouseCol = -1;
         playerMove(1);
     } else if (event.keyCode === 40) { // Down
         playerDrop();
